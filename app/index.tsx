@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
 import LoginScreen from '../src/pages/LoginScreen';
 import HomeScreen from '../src/pages/HomeScreen';
 import EventFormScreen from '../src/pages/EventFormScreen';
@@ -17,19 +17,15 @@ export default function App() {
   }, []);
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        {user ? (
-          <>
-            <Stack.Screen name="Home" component={HomeScreen} initialParams={{ user }} />
-            <Stack.Screen name="EventForm" component={EventFormScreen} />
-          </>
-        ) : (
-          <Stack.Screen name="Login">
-            {(props) => <LoginScreen {...props} onLogin={setUser} />}
-          </Stack.Screen>
-        )}
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Stack.Navigator screenOptions={{ headerTitleAlign: 'center' }}>
+      {user ? (
+        <>
+          <Stack.Screen name="Home" component={HomeScreen} initialParams={{ user }} />
+          <Stack.Screen name="EventForm" component={EventFormScreen} />
+        </>
+      ) : (
+        <Stack.Screen name="Login" component={LoginScreen} />
+      )}
+    </Stack.Navigator>
   );
 }

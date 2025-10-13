@@ -1,3 +1,22 @@
+/**
+ * AuthController
+ *
+ * Manages user authentication and registration for the EventEase application.
+ * Handles user login, registration, and session persistence using AsyncStorage.
+ *
+ * Key Responsibilities:
+ * - Authenticate existing users by comparing credentials
+ * - Register new users if credentials don't match stored data
+ * - Retrieve current logged-in user from storage
+ * - Persist user data between app sessions
+ *
+ * Methods:
+ * - loginOrRegister(email, password): Authenticate or create new user account
+ * - getCurrentUser(): Retrieve currently logged-in user from storage
+ *
+ * Storage Key: 'user'
+ */
+
 import { saveData, getData } from '../services/storage';
 import { User } from '../types/User';
 

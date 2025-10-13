@@ -1,3 +1,27 @@
+/**
+ * EventController
+ *
+ * Core controller for managing event data in the EventEase application.
+ * Provides CRUD operations and participation tracking for events.
+ *
+ * Key Responsibilities:
+ * - Create, read, update, and delete events
+ * - Generate unique IDs for new events using UUID
+ * - Toggle participation status for events
+ * - Persist all event data to AsyncStorage
+ * - Manage event list state
+ *
+ * Methods:
+ * - getAll(): Retrieve all events from storage
+ * - saveAll(events): Save complete events array to storage
+ * - add(event): Create new event with auto-generated ID
+ * - update(event): Update existing event by ID
+ * - delete(id): Remove event by ID
+ * - toggleParticipation(id): Toggle participated status for event
+ *
+ * Storage Key: 'events'
+ */
+
 import { saveData, getData } from '../services/storage';
 import { Event } from '../types/Event';
 import { v4 as uuidv4 } from 'uuid';
