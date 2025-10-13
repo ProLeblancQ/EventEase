@@ -32,7 +32,7 @@ export default function HomeScreen({ navigation, route }: any) {
   const [events, setEvents] = useState<Event[]>([]);
 
   const loadEvents = async () => {
-    const data = await EventController.getAll();
+    const data = await EventController.getAll(user.email);
     setEvents(data);
   };
 
@@ -46,7 +46,7 @@ export default function HomeScreen({ navigation, route }: any) {
       <Text style={styles.welcomeText}>Bienvenue, {user.email}</Text>
       <Button
         title="Ajouter un événement"
-        onPress={() => navigation.navigate("EventForm")}
+        onPress={() => navigation.navigate("EventForm", { user })}
       />
       <FlatList
         data={events}
@@ -61,16 +61,16 @@ export default function HomeScreen({ navigation, route }: any) {
             </Text>
             <Button
               title="Modifier"
-              onPress={() => navigation.navigate("EventForm", { event: item })}
+              onPress={() => navigation.navigate("EventForm", { event: item, user })}
             />
             <Button
               title="Supprimer"
-              onPress={() => EventController.delete(item.id).then(loadEvents)}
+              onPress={() => EventController.delete(item.id, user.email).then(loadEvents)}
             />
             <Button
               title="Participation"
               onPress={() =>
-                EventController.toggleParticipation(item.id).then(loadEvents)
+                EventController.toggleParticipation(item.id, user.email).then(loadEvents)
               }
             />
           </View>

@@ -17,7 +17,7 @@
  * Storage Key: 'user'
  */
 
-import { saveData, getData } from '../services/storage';
+import { saveData, getData, removeData } from '../services/storage';
 import { User } from '../types/User';
 
 const USER_KEY = 'user';
@@ -37,5 +37,11 @@ export class AuthController {
 
   static async getCurrentUser(): Promise<User | null> {
     return await getData<User>(USER_KEY);
+  }
+
+  static async logout(): Promise<void> {
+    console.log("AuthController.logout called - removing user data");
+    await removeData(USER_KEY);
+    console.log("User data removed from storage");
   }
 }

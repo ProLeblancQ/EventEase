@@ -28,15 +28,32 @@ import { styles } from "./styles/EventFormScreen.styles";
 
 export default function EventFormScreen({ route, navigation }: any) {
   const event: Event | undefined = route.params?.event;
+  const user = route.params?.user;
   const [title, setTitle] = useState(event?.title || "");
   const [description, setDescription] = useState(event?.description || "");
   const [date, setDate] = useState(event?.date || "");
 
   const handleSave = async () => {
+    // Validation
+    if (!title.trim()) {
+      alert("Veuillez entrer un titre");
+      return;
+    }
+
+    if (!description.trim()) {
+      alert("Veuillez entrer une description");
+      return;
+    }
+
+    if (!date.trim()) {
+      alert("Veuillez entrer une date");
+      return;
+    }
+
     if (event) {
       await EventController.update({ ...event, title, description, date });
     } else {
-      await EventController.add({ title, description, date });
+      await EventController.add({ title, description, date }, user.email);
     }
     navigation.goBack();
   };

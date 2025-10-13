@@ -24,4 +24,5 @@ export interface Event {
   description: string;
   date: string;
   participated: boolean;
+  userEmail: string; // Email of the user who created this event
 }

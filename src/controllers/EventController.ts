@@ -29,36 +29,48 @@ import { v4 as uuidv4 } from 'uuid';
 const EVENT_KEY = 'events';
 
 export class EventController {
-  static async getAll(): Promise<Event[]> {
+  // Get all events (for internal use)
+  static async getAllEvents(): Promise<Event[]> {
     return (await getData<Event[]>(EVENT_KEY)) || [];
+  }
+
+  // Get events for a specific user
+  static async getAll(userEmail: string): Promise<Event[]> {
+    const allEvents = await this.getAllEvents();
+    return allEvents.filter(event => event.userEmail === userEmail);
   }
 
   static async saveAll(events: Event[]): Promise<void> {
     await saveData(EVENT_KEY, events);
   }
 
-  static async add(event: Omit<Event, 'id' | 'participated'>): Promise<void> {
-    const events = await this.getAll();
-    const newEvent: Event = { id: uuidv4(), participated: false, ...event };
-    await this.saveAll([...events, newEvent]);
+  static async add(event: Omit<Event, 'id' | 'participated' | 'userEmail'>, userEmail: string): Promise<void> {
+    const allEvents = await this.getAllEvents();
+    const newEvent: Event = {
+      id: uuidv4(),
+      participated: false,
+      userEmail,
+      ...event
+    };
+    await this.saveAll([...allEvents, newEvent]);
   }
 
   static async update(updated: Event): Promise<void> {
-    const events = await this.getAll();
-    const newEvents = events.map(ev => (ev.id === updated.id ? updated : ev));
+    const allEvents = await this.getAllEvents();
+    const newEvents = allEvents.map(ev => (ev.id === updated.id ? updated : ev));
     await this.saveAll(newEvents);
   }
 
-  static async delete(id: string): Promise<void> {
-    const events = await this.getAll();
-    const newEvents = events.filter(ev => ev.id !== id);
+  static async delete(id: string, userEmail: string): Promise<void> {
+    const allEvents = await this.getAllEvents();
+    const newEvents = allEvents.filter(ev => !(ev.id === id && ev.userEmail === userEmail));
     await this.saveAll(newEvents);
   }
 
-  static async toggleParticipation(id: string): Promise<void> {
-    const events = await this.getAll();
-    const updated = events.map(ev =>
-      ev.id === id ? { ...ev, participated: !ev.participated } : ev
+  static async toggleParticipation(id: string, userEmail: string): Promise<void> {
+    const allEvents = await this.getAllEvents();
+    const updated = allEvents.map(ev =>
+      ev.id === id && ev.userEmail === userEmail ? { ...ev, participated: !ev.participated } : ev
     );
     await this.saveAll(updated);
   }

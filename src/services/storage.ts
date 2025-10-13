@@ -30,3 +30,7 @@ export const getData = async <T>(key: string): Promise<T | null> => {
   const jsonValue = await AsyncStorage.getItem(key);
   return jsonValue ? JSON.parse(jsonValue) : null;
 };
+
+export const removeData = async (key: string): Promise<void> => {
+  await AsyncStorage.removeItem(key);
+};
