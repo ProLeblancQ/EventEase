@@ -22,6 +22,8 @@ import { View, TextInput, Button, Text } from "react-native";
 import { AuthController } from "../controllers/AuthController";
 import { User } from "../types/User";
 import { styles } from "./styles/LoginScreen.styles";
+import { typography } from "../styles/typography";
+import BackgroundWrapper from "../components/BackgroundWrapper";
 
 interface Props {
   onLogin: (user: User) => void;
@@ -61,22 +63,24 @@ export default function LoginScreen({ navigation, route }: any) {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Connexion / Inscription</Text>
-      <TextInput
-        placeholder="Email"
-        value={email}
-        onChangeText={setEmail}
-        style={styles.input}
-      />
-      <TextInput
-        placeholder="Mot de passe"
-        value={password}
-        secureTextEntry
-        onChangeText={setPassword}
-        style={styles.input}
-      />
-      <Button title="Se connecter" onPress={handleLogin} />
-    </View>
+    <BackgroundWrapper overlay overlayOpacity={0.3}>
+      <View style={styles.container}>
+        <Text style={[styles.title, typography.h1]}>Connexion / Inscription</Text>
+        <TextInput
+          placeholder="Email"
+          value={email}
+          onChangeText={setEmail}
+          style={styles.input}
+        />
+        <TextInput
+          placeholder="Mot de passe"
+          value={password}
+          secureTextEntry
+          onChangeText={setPassword}
+          style={styles.input}
+        />
+        <Button title="Se connecter" onPress={handleLogin} />
+      </View>
+    </BackgroundWrapper>
   );
 }

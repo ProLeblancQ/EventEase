@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { View, ActivityIndicator } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import LoginScreen from '../src/pages/LoginScreen';
@@ -7,15 +8,26 @@ import EventFormScreen from '../src/pages/EventFormScreen';
 import LogoutButton from '../src/components/LogoutButton';
 import { AuthController } from '../src/controllers/AuthController';
 import { User } from '../src/types/User';
+import { useFonts } from '../src/hooks/useFonts';
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   const [user, setUser] = useState<User | null>(null);
+  const fontsLoaded = useFonts();
 
   useEffect(() => {
     AuthController.getCurrentUser().then(setUser);
   }, []);
+
+  // Show loading screen while fonts are loading
+  if (!fontsLoaded) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <ActivityIndicator size="large" color="#0000ff" />
+      </View>
+    );
+  }
 
   const handleLogout = () => {
     console.log("handleLogout called in App - setting user to null");

@@ -26,6 +26,8 @@ import { View, Text, Button, FlatList } from "react-native";
 import { EventController } from "../controllers/EventController";
 import { Event } from "../types/Event";
 import { styles } from "./styles/HomeScreen.styles";
+import { typography } from "../styles/typography";
+import BackgroundWrapper from "../components/BackgroundWrapper";
 
 export default function HomeScreen({ navigation, route }: any) {
   const { user } = route.params;
@@ -42,40 +44,42 @@ export default function HomeScreen({ navigation, route }: any) {
   }, [navigation]);
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.welcomeText}>Bienvenue, {user.email}</Text>
-      <Button
-        title="Ajouter un événement"
-        onPress={() => navigation.navigate("EventForm", { user })}
-      />
-      <FlatList
-        data={events}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <View style={styles.eventCard}>
-            <Text style={styles.eventTitle}>{item.title}</Text>
-            <Text style={styles.eventDescription}>{item.description}</Text>
-            <Text style={styles.eventDate}>Date: {item.date}</Text>
-            <Text style={styles.participationStatus}>
-              Participé: {item.participated ? "✅" : "❌"}
-            </Text>
-            <Button
-              title="Modifier"
-              onPress={() => navigation.navigate("EventForm", { event: item, user })}
-            />
-            <Button
-              title="Supprimer"
-              onPress={() => EventController.delete(item.id, user.email).then(loadEvents)}
-            />
-            <Button
-              title="Participation"
-              onPress={() =>
-                EventController.toggleParticipation(item.id, user.email).then(loadEvents)
-              }
-            />
-          </View>
-        )}
-      />
-    </View>
+    <BackgroundWrapper overlay overlayOpacity={0.3}>
+      <View style={styles.container}>
+        <Text style={[styles.welcomeText, typography.h2]}>Bienvenue, {user.email}</Text>
+        <Button
+          title="Ajouter un événement"
+          onPress={() => navigation.navigate("EventForm", { user })}
+        />
+        <FlatList
+          data={events}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <View style={styles.eventCard}>
+              <Text style={[styles.eventTitle, typography.h3]}>{item.title}</Text>
+              <Text style={[styles.eventDescription, typography.body]}>{item.description}</Text>
+              <Text style={[styles.eventDate, typography.bodySmall]}>Date: {item.date}</Text>
+              <Text style={[styles.participationStatus, typography.bodySmall]}>
+                Participé: {item.participated ? "✅" : "❌"}
+              </Text>
+              <Button
+                title="Modifier"
+                onPress={() => navigation.navigate("EventForm", { event: item, user })}
+              />
+              <Button
+                title="Supprimer"
+                onPress={() => EventController.delete(item.id, user.email).then(loadEvents)}
+              />
+              <Button
+                title="Participation"
+                onPress={() =>
+                  EventController.toggleParticipation(item.id, user.email).then(loadEvents)
+                }
+              />
+            </View>
+          )}
+        />
+      </View>
+    </BackgroundWrapper>
   );
 }

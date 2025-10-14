@@ -25,6 +25,7 @@ import { View, TextInput, Button } from "react-native";
 import { EventController } from "../controllers/EventController";
 import { Event } from "../types/Event";
 import { styles } from "./styles/EventFormScreen.styles";
+import BackgroundWrapper from "../components/BackgroundWrapper";
 
 export default function EventFormScreen({ route, navigation }: any) {
   const event: Event | undefined = route.params?.event;
@@ -59,26 +60,28 @@ export default function EventFormScreen({ route, navigation }: any) {
   };
 
   return (
-    <View style={styles.container}>
-      <TextInput
-        placeholder="Titre"
-        value={title}
-        onChangeText={setTitle}
-        style={styles.input}
-      />
-      <TextInput
-        placeholder="Description"
-        value={description}
-        onChangeText={setDescription}
-        style={styles.input}
-      />
-      <TextInput
-        placeholder="Date"
-        value={date}
-        onChangeText={setDate}
-        style={styles.input}
-      />
-      <Button title="Enregistrer" onPress={handleSave} />
-    </View>
+    <BackgroundWrapper overlay overlayOpacity={0.3}>
+      <View style={styles.container}>
+        <TextInput
+          placeholder="Titre"
+          value={title}
+          onChangeText={setTitle}
+          style={styles.input}
+        />
+        <TextInput
+          placeholder="Description"
+          value={description}
+          onChangeText={setDescription}
+          style={styles.input}
+        />
+        <TextInput
+          placeholder="Date"
+          value={date}
+          onChangeText={setDate}
+          style={styles.input}
+        />
+        <Button title="Enregistrer" onPress={handleSave} />
+      </View>
+    </BackgroundWrapper>
   );
 }
