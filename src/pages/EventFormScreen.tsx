@@ -21,12 +21,13 @@
  */
 
 import React, { useState } from "react";
-import { View, TextInput, Button } from "react-native";
+import { View, TextInput } from "react-native";
 import { EventController } from "../controllers/EventController";
 import { Event } from "../types/Event";
 import { styles } from "./styles/EventFormScreen.styles";
 import BackgroundWrapper from "../components/BackgroundWrapper";
 import Card from "../components/Card";
+import CustomButton from "../components/CustomButton";
 
 export default function EventFormScreen({ route, navigation }: any) {
   const event: Event | undefined = route.params?.event;
@@ -82,7 +83,7 @@ export default function EventFormScreen({ route, navigation }: any) {
             onChangeText={setDate}
             style={styles.input}
           />
-          <Button title="Enregistrer" onPress={handleSave} />
+          <CustomButton title="Enregistrer" onPress={handleSave} />
         </Card>
       </View>
     </BackgroundWrapper>

@@ -18,13 +18,14 @@
  */
 
 import React, { useState } from "react";
-import { View, TextInput, Button, Text } from "react-native";
+import { View, TextInput, Text } from "react-native";
 import { AuthController } from "../controllers/AuthController";
 import { User } from "../types/User";
 import { styles } from "./styles/LoginScreen.styles";
 import { typography } from "../styles/typography";
 import BackgroundWrapper from "../components/BackgroundWrapper";
 import Card from "../components/Card";
+import CustomButton from "../components/CustomButton";
 
 interface Props {
   onLogin: (user: User) => void;
@@ -81,7 +82,7 @@ export default function LoginScreen({ navigation, route }: any) {
             onChangeText={setPassword}
             style={styles.input}
           />
-          <Button title="Se connecter" onPress={handleLogin} />
+          <CustomButton title="Se connecter" onPress={handleLogin} />
         </Card>
       </View>
     </BackgroundWrapper>
