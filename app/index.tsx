@@ -41,7 +41,15 @@ export default function App() {
   };
 
   return (
-    <Stack.Navigator screenOptions={{ headerTitleAlign: 'center' }}>
+    <Stack.Navigator
+      screenOptions={{
+        headerTitleAlign: 'center',
+        headerTransparent: true,
+        headerStyle: {
+          backgroundColor: 'transparent',
+        },
+      }}
+    >
       {user ? (
         <>
           <Stack.Screen
@@ -49,6 +57,7 @@ export default function App() {
             component={HomeScreen}
             initialParams={{ user }}
             options={({ navigation }) => ({
+              title: '',
               headerRight: () => <LogoutButton navigation={navigation} onLogout={handleLogout} />
             })}
           />
@@ -56,6 +65,7 @@ export default function App() {
             name="EventForm"
             component={EventFormScreen}
             options={({ navigation }) => ({
+              title: '',
               headerRight: () => <LogoutButton navigation={navigation} onLogout={handleLogout} />
             })}
           />
@@ -65,6 +75,9 @@ export default function App() {
           name="Login"
           component={LoginScreen}
           initialParams={{ onLogin: handleLogin }}
+          options={{
+            title: '',
+          }}
         />
       )}
     </Stack.Navigator>

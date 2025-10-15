@@ -24,6 +24,7 @@ import { User } from "../types/User";
 import { styles } from "./styles/LoginScreen.styles";
 import { typography } from "../styles/typography";
 import BackgroundWrapper from "../components/BackgroundWrapper";
+import Card from "../components/Card";
 
 interface Props {
   onLogin: (user: User) => void;
@@ -63,23 +64,25 @@ export default function LoginScreen({ navigation, route }: any) {
   };
 
   return (
-    <BackgroundWrapper overlay overlayOpacity={0.3}>
+    <BackgroundWrapper>
       <View style={styles.container}>
-        <Text style={[styles.title, typography.h1]}>Connexion / Inscription</Text>
-        <TextInput
-          placeholder="Email"
-          value={email}
-          onChangeText={setEmail}
-          style={styles.input}
-        />
-        <TextInput
-          placeholder="Mot de passe"
-          value={password}
-          secureTextEntry
-          onChangeText={setPassword}
-          style={styles.input}
-        />
-        <Button title="Se connecter" onPress={handleLogin} />
+        <Card>
+          <Text style={[styles.title, typography.h1]}>Connexion / Inscription</Text>
+          <TextInput
+            placeholder="Email"
+            value={email}
+            onChangeText={setEmail}
+            style={styles.input}
+          />
+          <TextInput
+            placeholder="Mot de passe"
+            value={password}
+            secureTextEntry
+            onChangeText={setPassword}
+            style={styles.input}
+          />
+          <Button title="Se connecter" onPress={handleLogin} />
+        </Card>
       </View>
     </BackgroundWrapper>
   );

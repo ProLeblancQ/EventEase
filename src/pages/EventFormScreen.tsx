@@ -26,6 +26,7 @@ import { EventController } from "../controllers/EventController";
 import { Event } from "../types/Event";
 import { styles } from "./styles/EventFormScreen.styles";
 import BackgroundWrapper from "../components/BackgroundWrapper";
+import Card from "../components/Card";
 
 export default function EventFormScreen({ route, navigation }: any) {
   const event: Event | undefined = route.params?.event;
@@ -60,27 +61,29 @@ export default function EventFormScreen({ route, navigation }: any) {
   };
 
   return (
-    <BackgroundWrapper overlay overlayOpacity={0.3}>
+    <BackgroundWrapper>
       <View style={styles.container}>
-        <TextInput
-          placeholder="Titre"
-          value={title}
-          onChangeText={setTitle}
-          style={styles.input}
-        />
-        <TextInput
-          placeholder="Description"
-          value={description}
-          onChangeText={setDescription}
-          style={styles.input}
-        />
-        <TextInput
-          placeholder="Date"
-          value={date}
-          onChangeText={setDate}
-          style={styles.input}
-        />
-        <Button title="Enregistrer" onPress={handleSave} />
+        <Card>
+          <TextInput
+            placeholder="Titre"
+            value={title}
+            onChangeText={setTitle}
+            style={styles.input}
+          />
+          <TextInput
+            placeholder="Description"
+            value={description}
+            onChangeText={setDescription}
+            style={styles.input}
+          />
+          <TextInput
+            placeholder="Date"
+            value={date}
+            onChangeText={setDate}
+            style={styles.input}
+          />
+          <Button title="Enregistrer" onPress={handleSave} />
+        </Card>
       </View>
     </BackgroundWrapper>
   );

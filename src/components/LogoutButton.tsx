@@ -17,7 +17,7 @@
 import React from "react";
 import { TouchableOpacity, Text, Alert } from "react-native";
 import { AuthController } from "../controllers/AuthController";
-import { styles } from "./LogoutButton.styles";
+import { styles } from "./styles/LogoutButton.styles";
 
 interface LogoutButtonProps {
   navigation: any;
