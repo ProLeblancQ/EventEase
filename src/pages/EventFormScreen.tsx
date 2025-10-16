@@ -39,17 +39,14 @@ export default function EventFormScreen({ route, navigation }: any) {
   const handleSave = async () => {
     // Validation
     if (!title.trim()) {
-      alert("Veuillez entrer un titre");
       return;
     }
 
     if (!description.trim()) {
-      alert("Veuillez entrer une description");
       return;
     }
 
     if (!date.trim()) {
-      alert("Veuillez entrer une date");
       return;
     }
 

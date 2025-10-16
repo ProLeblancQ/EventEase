@@ -47,7 +47,7 @@ export default function HomeScreen({ navigation, route }: any) {
 
   return (
     <BackgroundWrapper>
-      <ScrollView style={styles.container}>
+      <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
         <Card>
           <Text style={[styles.welcomeText, typography.h2]}>Bienvenue, {user.email}</Text>
           <CustomButton

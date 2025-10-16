@@ -38,17 +38,14 @@ export default function LoginScreen({ navigation, route }: any) {
   const handleLogin = async () => {
     // Validation des champs
     if (!email.trim()) {
-      alert("Veuillez entrer votre email");
       return;
     }
 
     if (!password.trim()) {
-      alert("Veuillez entrer votre mot de passe");
       return;
     }
 
     if (password.length < 4) {
-      alert("Le mot de passe doit contenir au moins 4 caractères");
       return;
     }
 

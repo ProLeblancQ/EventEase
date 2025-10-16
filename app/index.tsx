@@ -6,6 +6,7 @@ import LoginScreen from '../src/pages/LoginScreen';
 import HomeScreen from '../src/pages/HomeScreen';
 import EventFormScreen from '../src/pages/EventFormScreen';
 import LogoutButton from '../src/components/LogoutButton';
+import BackButton from '../src/components/BackButton';
 import { AuthController } from '../src/controllers/AuthController';
 import { User } from '../src/types/User';
 import { useFonts } from '../src/hooks/useFonts';
@@ -66,6 +67,7 @@ export default function App() {
             component={EventFormScreen}
             options={({ navigation }) => ({
               title: '',
+              headerLeft: () => <BackButton navigation={navigation} />,
               headerRight: () => <LogoutButton navigation={navigation} onLogout={handleLogout} />
             })}
           />
