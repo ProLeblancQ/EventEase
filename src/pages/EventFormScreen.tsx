@@ -36,6 +36,25 @@ export default function EventFormScreen({ route, navigation }: any) {
   const [description, setDescription] = useState(event?.description || "");
   const [date, setDate] = useState(event?.date || "");
 
+  const handleDateChange = (text: string) => {
+    // Ne garder que les chiffres
+    const numbers = text.replace(/\D/g, '');
+
+    // Formater automatiquement JJ/MM/AAAA
+    let formatted = '';
+    if (numbers.length > 0) {
+      formatted = numbers.substring(0, 2);
+      if (numbers.length >= 3) {
+        formatted += '/' + numbers.substring(2, 4);
+      }
+      if (numbers.length >= 5) {
+        formatted += '/' + numbers.substring(4, 8);
+      }
+    }
+
+    setDate(formatted);
+  };
+
   const handleSave = async () => {
     // Validation
     if (!title.trim()) {
@@ -75,10 +94,12 @@ export default function EventFormScreen({ route, navigation }: any) {
             style={styles.input}
           />
           <TextInput
-            placeholder="Date"
+            placeholder="Date (JJ/MM/AAAA)"
             value={date}
-            onChangeText={setDate}
+            onChangeText={handleDateChange}
             style={styles.input}
+            keyboardType="numeric"
+            maxLength={10}
           />
           <CustomButton title="Enregistrer" onPress={handleSave} />
         </Card>
