@@ -7,13 +7,15 @@ import HomeScreen from '../src/pages/HomeScreen';
 import EventFormScreen from '../src/pages/EventFormScreen';
 import LogoutButton from '../src/components/LogoutButton';
 import BackButton from '../src/components/BackButton';
+import ThemeToggleButton from '../src/components/ThemeToggleButton';
+import { ThemeProvider } from '../src/contexts/ThemeContext';
 import { AuthController } from '../src/controllers/AuthController';
 import { User } from '../src/types/User';
 import { useFonts } from '../src/hooks/useFonts';
 
 const Stack = createNativeStackNavigator();
 
-export default function App() {
+function AppNavigator() {
   const [user, setUser] = useState<User | null>(null);
   const fontsLoaded = useFonts();
 
@@ -59,6 +61,7 @@ export default function App() {
             initialParams={{ user }}
             options={({ navigation }) => ({
               title: '',
+              headerLeft: () => <ThemeToggleButton />,
               headerRight: () => <LogoutButton navigation={navigation} onLogout={handleLogout} />
             })}
           />
@@ -83,5 +86,13 @@ export default function App() {
         />
       )}
     </Stack.Navigator>
+  );
+}
+
+export default function App() {
+  return (
+    <ThemeProvider>
+      <AppNavigator />
+    </ThemeProvider>
   );
 }

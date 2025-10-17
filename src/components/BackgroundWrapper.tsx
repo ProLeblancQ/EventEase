@@ -6,6 +6,7 @@
  *
  * Features:
  * - Full-screen background image
+ * - Switches between day/night mode backgrounds
  * - Optional overlay for better text readability
  * - Responsive and scrollable content
  *
@@ -17,6 +18,7 @@
 
 import React from "react";
 import { ImageBackground, StyleSheet, View } from "react-native";
+import { useTheme } from "../contexts/ThemeContext";
 
 interface BackgroundWrapperProps {
   children: React.ReactNode;
@@ -29,9 +31,15 @@ export default function BackgroundWrapper({
   overlay = false,
   overlayOpacity = 0.5,
 }: BackgroundWrapperProps) {
+  const { isDarkMode } = useTheme();
+
+  const backgroundImage = isDarkMode
+    ? require("../../assets/images/backgroundBis.jpg")
+    : require("../../assets/images/background.jpg");
+
   return (
     <ImageBackground
-      source={require("../../assets/images/background.jpg")}
+      source={backgroundImage}
       style={styles.background}
       resizeMode="cover"
     >
