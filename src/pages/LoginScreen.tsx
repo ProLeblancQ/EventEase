@@ -53,12 +53,11 @@ export default function LoginScreen({ navigation, route }: any) {
     const user = await AuthController.loginOrRegister(email, password);
     console.log("User logged in:", user);
 
-    // Call the onLogin callback if it exists
+    // Call the onLogin callback - this will update the user state in App
+    // and trigger automatic navigation to Home screen
     if (route.params?.onLogin) {
       route.params.onLogin(user);
     }
-
-    navigation.replace("Home", { user });
   };
 
   return (

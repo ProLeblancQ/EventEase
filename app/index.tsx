@@ -59,10 +59,10 @@ function AppNavigator() {
             name="Home"
             component={HomeScreen}
             initialParams={{ user }}
-            options={({ navigation }) => ({
+            options={() => ({
               title: '',
               headerLeft: () => <ThemeToggleButton />,
-              headerRight: () => <LogoutButton navigation={navigation} onLogout={handleLogout} />
+              headerRight: () => <LogoutButton onLogout={handleLogout} />
             })}
           />
           <Stack.Screen
@@ -71,7 +71,7 @@ function AppNavigator() {
             options={({ navigation }) => ({
               title: '',
               headerLeft: () => <BackButton navigation={navigation} />,
-              headerRight: () => <LogoutButton navigation={navigation} onLogout={handleLogout} />
+              headerRight: () => <LogoutButton onLogout={handleLogout} />
             })}
           />
         </>
