@@ -6,7 +6,7 @@
  *
  * Key Responsibilities:
  * - Create, read, update, and delete events
- * - Generate unique IDs for new events using UUID
+ * - Generate unique IDs for new events using expo-crypto
  * - Toggle participation status for events
  * - Persist all event data to AsyncStorage
  * - Manage event list state
@@ -24,7 +24,7 @@
 
 import { saveData, getData } from '../services/storage';
 import { Event } from '../types/Event';
-import { v4 as uuidv4 } from 'uuid';
+import * as Crypto from 'expo-crypto';
 
 const EVENT_KEY = 'events';
 
@@ -47,7 +47,7 @@ export class EventController {
   static async add(event: Omit<Event, 'id' | 'participated' | 'userEmail'>, userEmail: string): Promise<void> {
     const allEvents = await this.getAllEvents();
     const newEvent: Event = {
-      id: uuidv4(),
+      id: Crypto.randomUUID(),
       participated: false,
       userEmail,
       ...event
